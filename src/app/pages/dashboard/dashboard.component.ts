@@ -16,7 +16,7 @@ var groupBy = function(xs: any[], key: string | number) {
 })
 export class DashboardComponent implements OnInit {
   Highcharts = Highcharts;
-  linechart!: Highcharts.Options;
+  linechart!: any;
   showGraph: boolean = false;
 
   constructor(
@@ -47,24 +47,71 @@ export class DashboardComponent implements OnInit {
     console.log(resp);
     this.linechart = {
       chart: {
-        type: "spline",
+          type: 'column'
+      },
+      title: {
+          text: 'Desempeño de habilidad motriz'
       },
       xAxis: {
-        type: 'datetime',
-        tickInterval: 1000 * 3600 * 24 * 1,
-        labels: { // los objetos se reemplazan completamente en un assign
-          format: "{value:%d %b %y }"
-        },
-        dateTimeLabelFormats: {
-          day: '%e. %b %H:%M'
-        }
+          title: {
+              text: 'Ultimos 10 intentos'
+          },
+          categories: [
+              '1',
+              '2',
+              '3',
+              '4',
+              '5',
+              '6',
+              '7',
+              '8',
+              '9',
+              '10',
+          ],
+          crosshair: true
+      },
+      yAxis: {
+          min: 0,
+          title: {
+              text: 'Cantidad de choques'
+          }
+      },
+      tooltip: {
+          headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+          pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+              '<td style="padding:0"><b>{point.y:.1f} Choques </b></td></tr>',
+          footerFormat: '</table>',
+          shared: true,
+          useHTML: true
+      },
+      plotOptions: {
+          column: {
+              pointPadding: 0.2,
+              borderWidth: 0
+          }
       },
       series: [{
-        type: 'spline',
-        turboThreshold: 500000,
-        data: resp
+          name: 'Usuario 1',
+          data: [1,2,3,4,5,6,7,8,9,10]
+
+      }, {
+          name: 'Usuario 2',
+          data: [1,2,3,4,5,6,7,8,9,10]
+
+      }, {
+          name: 'Usuario 3',
+          data: [1,2,3,4,5,6,7,8,9,10]
+
+      }, {
+          name: 'Usuario 4',
+          data: [1,2,3,4,5,6,7,8,9,10]
+      }, {
+          name: 'Usuario 5',
+          data: [1,2,3,4,5,6,7,8,9,10]
       }]
     }
+    console.log(this.linechart);
+
   }
 
 

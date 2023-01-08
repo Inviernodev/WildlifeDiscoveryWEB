@@ -1,3 +1,16 @@
-<a mat-list-item routerLinkActive="mat-elevation-z3" routerLink="dashboard">OA 1</a>
-<a mat-list-item href="#">Link 2</a>
-<a mat-list-item href="#">Link 3</a>
+<mat-accordion>
+  <button mat-button class="w-100 mb-2" routerLinkActive="mat-elevation-z1 border" routerLink="/dashboard">
+    Dashboard
+  </button>
+
+  <mat-expansion-panel class="mat-elevation-z0 mb-2" routerLinkActive="mat-elevation-z2 border">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Actividades
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <a mat-list-item routerLinkActive="mat-elevation-z1 border" routerLink="/actividades/quiz-basura">Quiz Basura</a>
+    <a mat-list-item routerLinkActive="mat-elevation-z1 border" routerLink="/actividades/dibujo">Dibujo</a>
+  </mat-expansion-panel>
+
+</mat-accordion>

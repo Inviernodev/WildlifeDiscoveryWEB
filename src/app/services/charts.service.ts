@@ -10,7 +10,11 @@ export class ChartsService {
   constructor(private http: HttpClient) { }
 
   getChartTest() {
-    return this.http.get<any[]>(environment.apiUrl + '/test');
+    return this.http.get<any[]>(environment.apiUrl + '/charts/dibujotiempo');
+  }
+
+  get(path: string) {
+    return this.http.get<any[]>(environment.apiUrl + path);
   }
 
 }
