@@ -27,7 +27,7 @@ export class QuizBasuraComponent implements OnInit{
         type: 'bar'
     },
     title: {
-        text: 'Desempeño por estudiante'
+        text: 'Cantidad de respuestas correctas e incorrectas por estudiante'
     },
     xAxis: {
         categories: []

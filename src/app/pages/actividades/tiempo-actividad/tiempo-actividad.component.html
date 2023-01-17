@@ -1,0 +1,32 @@
+<div class="container mt-2">
+  <h2>Tiempo Actividad</h2>
+  <div class="row">
+    <div class="col-md-6">
+
+
+      <mat-form-field appearance="fill">
+        <mat-label>Seleccione la actividad:</mat-label>
+        <mat-select [formControl]="actividadControl">
+          <mat-option *ngFor="let actividad of actividades" [value]="actividad">
+            {{actividad.nombre}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-md-12" *ngIf="actividadControl.valid; else sinSeleccionar">
+      <highcharts-chart
+        class="rounded border mat-elevation-z2"
+        [Highcharts]="Highcharts"
+        [options]="linechart"
+        style="width: 100%; height: 400px; display: block;"
+        [(update)]="updateFlag"
+        [oneToOne]="true"
+      >
+      </highcharts-chart>
+    </div>
+    <ng-template #sinSeleccionar>
+      <h3>No ha seleccionado una actividad!</h3>
+    </ng-template>
+
+  </div>
+</div>

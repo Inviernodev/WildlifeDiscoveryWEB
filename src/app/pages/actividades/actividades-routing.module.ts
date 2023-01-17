@@ -13,6 +13,9 @@ const routes: Routes = [
       {
         path: 'dibujo', loadComponent: () => import('./dibujo/dibujo.component').then(c => c.DibujoComponent)
       },
+      {
+        path: 'tiempo', loadComponent: () => import('./tiempo-actividad/tiempo-actividad.component').then(c => c.TiempoActividadComponent)
+      },
     ]
   }
 ];
