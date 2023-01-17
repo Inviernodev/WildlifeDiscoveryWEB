@@ -20,7 +20,10 @@ const routes: Routes = [
         path: 'quiz-basura', loadComponent: () => import('../../pages/actividades/quiz-basura/quiz-basura.component').then(c => c.QuizBasuraComponent)
       },
       {
-        path: 'actividades', loadChildren: () => import('../../pages/actividades/actividades.module').then(m => m.ActividadesModule)
+        path: 'plataformas', loadComponent: () => import('../../pages/actividades/plataformas/plataformas.component').then(c => c.PlataformasComponent)
+      },
+      {
+        path: 'dibujos', loadComponent: () => import('../../pages/actividades/dibujo/dibujo.component').then(c => c.DibujoComponent)
       },
     ]
   }

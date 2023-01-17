@@ -1,1 +1,10 @@
-<p>dibujo works!</p>
+
+<div class="container mt-2">
+  <h2>Dibujos</h2>
+  <div class="row">
+    <div class="col-md-4 col-xl-3 col-12 mb-2" *ngFor="let dibujo of dibujos">
+      <img *ngIf="dibujo?.base64" class="img-fluid border rounded mat-elevation-z2" src="data:image/png;base64,{{dibujo.base64}}"/>
+      <span>{{dibujo?.nombre}}</span>
+    </div>
+  </div>
+</div>

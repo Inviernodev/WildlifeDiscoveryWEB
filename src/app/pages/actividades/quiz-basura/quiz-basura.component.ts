@@ -27,7 +27,7 @@ export class QuizBasuraComponent implements OnInit{
         type: 'bar'
     },
     title: {
-        text: 'Cantidad de respuestas correctas e incorrectas por estudiante'
+        text: 'Número de características (tamaño, cubierta corporal, hábitat) que los/as estudiantes reconocen mientras juegan en las distintas sesiones de la actividad quiz'
     },
     xAxis: {
         categories: []

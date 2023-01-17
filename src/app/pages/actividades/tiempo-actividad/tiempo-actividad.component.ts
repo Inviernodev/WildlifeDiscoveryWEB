@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HighchartsChartModule } from 'highcharts-angular';
 import * as Highcharts from 'highcharts';
@@ -23,10 +23,10 @@ import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
   templateUrl: './tiempo-actividad.component.html',
   styleUrls: ['./tiempo-actividad.component.scss']
 })
-export class TiempoActividadComponent {
+export class TiempoActividadComponent implements OnInit {
 
   actividades!: any[];
-  actividadControl: FormControl<{nombre: string, id: number} | null> = new FormControl(null, Validators.required)
+  actividadControl: FormControl<number | null> = new FormControl(null, [Validators.required, Validators.min(1)])
 
 
 
@@ -72,7 +72,8 @@ export class TiempoActividadComponent {
 
   constructor(
     private chartService: ChartsService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.getActividades();
@@ -80,6 +81,7 @@ export class TiempoActividadComponent {
       console.log(actividad);
       this.getData();
     })
+    this.actividadControl.setValue(60008);
   }
 
   getActividades() {
@@ -89,7 +91,7 @@ export class TiempoActividadComponent {
   }
 
   getData() {
-    this.chartService.get('/charts/tiempo-actividad/'+this.actividadControl.value!.id).pipe(
+    this.chartService.get('/charts/tiempo-actividad/'+this.actividadControl.value).pipe(
       map((array: any[]) => {
         array = array.filter((value, index, array) =>
           index === array.findIndex((t) => (

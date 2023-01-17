@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, formatDate } from '@angular/common';
 import { HighchartsChartModule } from 'highcharts-angular';
 import * as Highcharts from 'highcharts';
 import { ChartsService } from '../../../services/charts.service';
@@ -10,9 +10,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 
-
 @Component({
-  selector: 'app-bote',
+  selector: 'app-plataformas',
   standalone: true,
   imports: [
     CommonModule,
@@ -21,17 +20,17 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatSelectModule,
     ReactiveFormsModule
   ],
-  templateUrl: './bote.component.html',
-  styleUrls: ['./bote.component.scss']
+  templateUrl: './plataformas.component.html',
+  styleUrls: ['./plataformas.component.scss']
 })
-export class BoteComponent implements OnInit {
+export class PlataformasComponent implements OnInit {
 
   updateFlag = false;
 
   Highcharts = Highcharts;
   linechart: Highcharts.Options = {
     title: {
-        text: 'Desempeño de la afinación motriz'
+        text: 'Número de materiales que los/as estudiantes reconocen mientras juegan en las distintas sesiones'
     },
     xAxis: {
       labels: {format: '{value:%e/%m/%y}' },
@@ -53,17 +52,15 @@ export class BoteComponent implements OnInit {
         var myDate = new Date(this.x as any);
         return '<b>' +
           this.series.name +
-          '</b><br/>' +
-          Highcharts.dateFormat('Hora Inicio: %H:%M', myDate.getTime()) +
           '<br/>' +
           Highcharts.dateFormat('Fecha: %e/%m/%y', myDate.getTime()) +
-          '<br/>Choques: ' +
-          this.y + ' seg';
+          '<br/>Intentos: ' +
+          this.y;
       }
     },
     series: [{
       name: 'test',
-      type: 'scatter',
+      type: 'bar',
       data: []
     }]
   };
@@ -77,28 +74,38 @@ export class BoteComponent implements OnInit {
   }
 
   getData() {
-    this.chartService.get('/charts/botes').pipe(
-
+    this.chartService.get('/charts/plataformas').pipe(
       map((array: any[]) => {
+
+        array = array.map(values => {
+          values.datetime_touch = formatDate(values.datetime_touch, 'YYYY-MM-dd', 'en');
+          return values;
+        });
+        console.log(array);
+
 
         let objectKeys = groupBy(array, 'nombres');
 
         let series: any[] = [];
 
         Object.keys(objectKeys).forEach((nombre: string) => {
+
+          let groupByDate = groupBy(objectKeys[nombre], 'datetime_touch');
+          let data = Object.entries(groupByDate).map(([date, array]: any) => [
+            (new Date(date)).getTime(),
+            array.length,
+          ]);
+
           series.push({
             name: nombre,
-            type: 'scatter',
-            data: objectKeys[nombre].map(({datetime_touch, totalCount}: any) => {
-              return [(new Date(datetime_touch)).getTime(), totalCount];
-            })
+            type: 'bar',
+            data
           });
         });
 
         return series;
       })
     ).subscribe((resp: any) => {
-      console.log(resp);
       this.linechart.series = resp;
       this.updateFlag = true;
     });
