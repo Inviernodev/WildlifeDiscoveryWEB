@@ -5,6 +5,7 @@
 /tmp
 /out-tsc
 /bazel-out
+/public
 
 # Node
 /node_modules
@@ -19,6 +20,10 @@ yarn-error.log
 *.launch
 .settings/
 *.sublime-workspace
+.vscode
+.vs
+.firebase
+.angular
 
 # Visual Studio Code
 .vscode/*

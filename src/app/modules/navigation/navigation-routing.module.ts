@@ -25,6 +25,11 @@ const routes: Routes = [
       {
         path: 'dibujos', loadComponent: () => import('../../pages/actividades/dibujo/dibujo.component').then(c => c.DibujoComponent)
       },
+      {
+        path: '**',
+        redirectTo: 'dashboard',
+        pathMatch: 'full'
+      }
     ]
   }
 ];
